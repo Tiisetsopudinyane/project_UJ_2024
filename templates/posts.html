@@ -1,123 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Posts</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="../static/css/style.css" />
-</head>
-<body>
-  <div class="row header">
-    <div class="col-md-6 header-buttons">
-      <div class="create-button">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for('createAccount')}}'">
-          Create Account
-        </button>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+  <body>
+    <div class="row header">
+      {% block CreatePost_login_Buttons %}{% endblock %}
     </div>
-    <div>
-      <div class="login-button">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url_for('login') }}'">
-          Log In
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="container ">
-    <div class="row justify-content-center">
-      <div class="col-md-3 bio-container">
-        <div class="row">
-          <div class="col-md-12 mt-5">
-            <div class="row">
-              <div class="col-md-5 image_border">
-                <img src="../static/images/user.png" class="img-fluid rounded-circle mb-3" alt="User Image">
-              </div>
-              <div class="col-md-5">
-                <h2>John Doe</h2>
-                <p>Occupation: Software Engineer</p>
-              </div>
-            </div>
-            <p>Location: New York, USA</p>
-            <p>Gender: Male</p>
-            <hr>
-            <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida vestibulum mauris eget efficitur. Donec finibus massa vel semper interdum.</p>
-            <h5>Interests:</h5>
-            <ul>
-              <li>Reading</li>
-              <li>Traveling</li>
-              <li>Photography</li>
-            </ul>
-          </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-3 bio-container">
+          {% block UserInfo %}{% endblock %}
         </div>
+        <div class="col-md-9 mt-5">{%block createPost%}{% endblock %}</div>
       </div>
-      <div class="col-md-9 content-div">
-        <!--for loop starts here to make content dynamic-->
-        {% for mydata in data %}
-        <div class="card content-container">
-          <div class="card-header">
-            <h5 id="fullName">Name: {{ mydata.fullName }}</h5>
-          </div>
-          <div class="card-body">
-            <h6 id="title">Title: {{ mydata.title }}</h6>
-            <p id="description">Description: {{ mydata.description }}</p>
-            <div class="swiper-container" id="swiperContainer{{ loop.index }}">
-              <div class="swiper-wrapper">
-                <!-- Dynamic media items will be inserted here -->
-                {% for media in mydata.media %}
-                <div class="swiper-slide">
-                  {% if media.endswith('.mp4') %}
-                  <video controls>
-                    <source src="{{ media }}" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                  {% else %}
-                  <img src="{{ media }}" alt="media" />
-                  {% endif %}
+
+      <div class="row justify-content-center">
+        <div class="col-md-9 content-div">
+          <!--for loop starts here to make content dynamic-->
+          {% for mydata in data %}
+          <div class="card content-container">
+            <div class="card-header">
+              <h5 id="fullName">Name: {{ mydata.fullName }}</h5>
+            </div>
+            <div class="card-body">
+              <h6 id="title">Title: {{ mydata.title }}</h6>
+              <p id="description">Description: {{ mydata.description }}</p>
+              <div class="swiper">
+                <div class="swiper-wrapper">
+                  <!-- Dynamic media items will be inserted here -->
+                  {% for media in mydata.media %}
+                  <div class="swiper-slide">
+                    {% if media.endswith('.mp4') %}
+                    <video controls onclick="openVideo('{{ media }}')">
+                      <source src="{{ media }}" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    {% else %}
+                    <img src="{{ media }}" alt="media" />
+                    {% endif %}
+                  </div>
+                  {% endfor %}
                 </div>
-                {% endfor %}
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Previous Button -->
+                <div class="swiper-button-prev"></div>
+                <!-- Add Next Button -->
+                <div class="swiper-button-next"></div>
               </div>
-              <!-- Add Pagination -->
-              <div class="swiper-pagination"></div>
-            </div>
-            <div class="like-comment-share">
-              <button type="button" class="btn-like-comment-share btn btn-outline-primary">
-                <i class="fas fa-heart"></i> Likes
-              </button>
-              <button type="button" class="btn-like-comment-share btn btn-outline-primary">
-                <i class="fas fa-comment"></i> Comments
-              </button>
-              <button type="button" class="btn-like-comment-share btn btn-outline-primary">
-                <i class="fas fa-share"></i> Share
-              </button>
+              
+              <div class="like-comment-share">
+                <button
+                  type="button"
+                  class="btn-like-comment-share btn btn-outline-primary"
+                >
+                  <i class="fas fa-heart"></i> Likes
+                </button>
+                <button
+                  type="button"
+                  class="btn-like-comment-share btn btn-outline-primary"
+                >
+                  <i class="fas fa-comment"></i> Comments
+                </button>
+                <button
+                  type="button"
+                  class="btn-like-comment-share btn btn-outline-primary share-button" onclick="toggleShareIcons()"
+                >
+                  <i class="fas fa-share"></i> Share
+                </button>
+                <div class="share-icons" id="shareIcons">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u={{URL}}" target="_blank" rel="noopener"><i class="fab fa-facebook"> </i>Facebook</a>
+                  <a href="https://twitter.com/intent/tweet?url={{URL}}" target="_blank" rel="noopener"><i class="fab fa-twitter"> </i>Twitter</a>
+                  <a href="https://www.linkedin.com/shareArticle?url={{URL}}" target="_blank" rel="noopener"><i class="fab fa-linkedin"> </i>LinkedIn</a>
+                  <a href="whatsapp://send?text={{URL}}" target="_blank" rel="noopener"><i class="fab fa-whatsapp whatsapp-icon"></i>Whatsapp</a>
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
+          <!--for loop ends here-->
         </div>
-        {% endfor %}
-        <!--for loop ends here-->
       </div>
     </div>
-  </div>
 
-  <!-- Include Swiper JS -->
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Swiper Initialization -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var swipers = document.querySelectorAll('.swiper-container');
-      swipers.forEach(function (swiperContainer) {
-        var swiper = new Swiper(swiperContainer, {
-          // Optional parameters
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      // Wait for the DOM to be fully loaded
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize Swiper after the DOM is ready
+        const swiper = new Swiper('.swiper', {
           loop: true,
-          // If you want pagination
           pagination: {
             el: '.swiper-pagination',
           },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
         });
+        
       });
+      /*function openVideo(videoUrl) {
+  window.open(videoUrl, 'Video Player', 'width=640,height=360');
+      }*/
+      function toggleShareIcons() {
+    var shareIcons = document.getElementById('shareIcons');
+    if (shareIcons.style.display === 'block') {
+      shareIcons.style.display = 'none';
+    } else {
+      shareIcons.style.display = 'block';
+    }
+  }
+  var shareLinks = document.querySelectorAll('.share-icons a');
+  shareLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      var shareIcons = document.getElementById('shareIcons');
+      shareIcons.style.display = 'none';
     });
-  </script>
-</body>
+  });
+    </script>
+  </body>
 </html>

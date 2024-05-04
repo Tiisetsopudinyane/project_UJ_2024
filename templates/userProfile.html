@@ -1,0 +1,93 @@
+{% extends "POSTS.html" %}
+{% block createPost %} 
+
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <div class="card form-container">
+          <div class="card-header text-center">
+            <h3>Create Post</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Enter post title" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" placeholder="Enter post description" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="photoUpload" class="form-label">Photo Upload OR video Upload</label>
+                <input type="file" class="form-control" id="photoUpload" multiple>
+              </div>
+             
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Post</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+{% endblock %}
+
+{% block UserInfo %}
+  <div class="row">
+    <div class="col-md-12 mt-5">
+      <div class="row">
+        <div class="col-md-5 image_border">
+          <img
+            src="../static/images/user.png"
+            class="img-fluid rounded-circle mb-3"
+            alt="User Image"
+          />
+        </div>
+        <div class="col-md-5">
+          <h2>John Doe</h2>
+          <p>Occupation: Software Engineer</p>
+        </div>
+      </div>
+      <p>Location: New York, USA</p>
+      <p>Gender: Male</p>
+      <hr />
+      <p>
+        Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed gravida vestibulum mauris eget efficitur. Donec finibus
+        massa vel semper interdum.
+      </p>
+      <h5>Interests:</h5>
+      <ul>
+        <li>Reading</li>
+        <li>Traveling</li>
+        <li>Photography</li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
+{% block CreatePost_login_Buttons %}
+<div class="col-md-6 header-buttons">
+  <div class="create-button">
+    <button
+      type="button"
+      class="btn btn-primary"
+      onclick="window.location.href='{{ url_for('createAccount')}}'"
+    >
+      Create Account
+    </button>
+  </div>
+</div>
+<div>
+  <div class="login-button">
+    <button
+      type="button"
+      class="btn btn-primary"
+      onclick="window.location.href='{{ url_for('login') }}'"
+    >
+      Log In
+    </button>
+  </div>
+</div>
+{% endblock %}

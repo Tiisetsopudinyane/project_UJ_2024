@@ -17,6 +17,8 @@ body {
     color: white;
     font-style: italic;
   }
+
+
   /*posts styling*/
   .content-container {
     margin-top: 20px;
@@ -76,9 +78,13 @@ body {
     font-family: 'Times New Roman', Times, serif;
     color: white;
   }
-  .bio-container p,ul li{
-    font-size: 18px;
+  
+  .bio-container ul li{
+    margin-right: 30px;
   }
+.bio-container ul{
+  display: flex;
+}
   .image_border{
     border-color:1px solid white;
     border-radius: 100%;
@@ -91,6 +97,47 @@ body {
     width: 100%;
   }
   
+  .swiper {
+    width: 100%;
+    height: 300px;
+    text-align: center;
+  }
+
+  .share-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .share-icons {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .share-icons img {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+  }
+
+
+  /* Customized Swiper slide */
+  .swiper-slide img,video{
+    width:80%;
+    height: 300px;
+    padding: auto;
+    margin: auto;
+    object-fit: cover;
+  }
 
   /*create account styling*/
   .dropdown {
@@ -116,4 +163,17 @@ body {
   }
   .dropdown:hover .dropdown-content {
     display: block;
+  }
+  .whatsapp-icon i{
+    color: #25D366; /* WhatsApp green color */
+  }
+  i{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .share-icons a{
+    margin-right: 1em;
+  }
+  .share-icons{
+    border-color: 2px solid black;
   }

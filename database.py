@@ -1,4 +1,4 @@
-from flask import Flask
+'''from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -41,3 +41,108 @@ class Post(db.Model):
 # Create the tables
 with app.app_context():
     db.create_all()
+    '''
+import sqlite3
+
+# Connect to SQLite database (creates if not exists)
+conn = sqlite3.connect('comments.db')
+
+# Create a cursor object to execute SQL queries
+cursor = conn.cursor()
+
+
+
+# Create replies table if not exists
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS replies (
+        reply_id INTEGER PRIMARY KEY,
+        comment_id INTEGER,
+        reply_text TEXT,
+        FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
+    )
+''')
+
+cursor.execute('''  CREATE TABLE IF NOT EXISTS User (
+        userId INTEGER PRIMARY KEY,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        date_of_birth DATE,
+        gender TEXT,
+        email TEXT UNIQUE NOT NULL,
+        occupation TEXT,
+        contact_details TEXT,
+        home_address TEXT,
+        postal_code TEXT,
+        password TEXT NOT NULL,
+        interests TEXT
+    )
+        ''')
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Post (
+        postId INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        title TEXT NOT NULL,
+        description TEXT NOT NULL,
+        images BLOB,
+        videos BLOB,
+        likes INTEGER DEFAULT 0,
+        comments INTEGER DEFAULT 0,
+        shares INTEGER DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES User(userId)
+    )
+''')
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Comment (
+        commentId INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        post_id INTEGER,
+        text TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES User(userId),
+        FOREIGN KEY (post_id) REFERENCES Post(postId)
+    )
+''')
+
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Likes (
+        likeId INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        post_id INTEGER,
+        FOREIGN KEY (user_id) REFERENCES User(userId),
+        FOREIGN KEY (post_id) REFERENCES Post(postId)
+    )
+''')
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Shares (
+        shareId INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        post_id INTEGER,
+        FOREIGN KEY (user_id) REFERENCES User(userId),
+        FOREIGN KEY (post_id) REFERENCES Post(postId)
+    )
+''')
+
+# Function to add a comment
+def add_comment(comment_id, text):
+    cursor.execute('INSERT INTO comments (comment_id, text) VALUES (?, ?)', (comment_id, text))
+    conn.commit()
+    print("Comment added successfully!")
+
+# Function to add a reply to a comment
+def add_reply(comment_id, reply_text):
+    cursor.execute('INSERT INTO replies (comment_id, reply_text) VALUES (?, ?)', (comment_id, reply_text))
+    conn.commit()
+    print("Reply added successfully!")
+
+# Example usage:
+add_comment(1, "This is the first comment.")
+add_reply(1, "Replying to the first comment.")
+add_comment(2, "Another comment.")
+add_reply(2, "Reply to another comment.")
+add_reply(1, "Another reply to the first comment.")
+
+# Close the connection
+conn.close()

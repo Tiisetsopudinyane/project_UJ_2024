@@ -43,3 +43,4 @@ def matchPassword(password,confirmPassword):
     if password==confirmPassword:
         encryptedpassword=encrypt_password(password)
         return encryptedpassword
+    

@@ -4,9 +4,10 @@ data = [
         "title": "First Post",
         "description": "This is the description of the first post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150"
+          "./static/images/dummy/grapes.jpg",
+          "./static/images/dummy/mangoes.jpg",
+          "./static/images/dummy/scooter.mp4",
+          "./static/images/dummy/onions.jpg"
         ]
       },
       {
@@ -14,8 +15,8 @@ data = [
         "title": "Second Post",
         "description": "This is the description of the second post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150/video"
+          "./static/images/dummy/Science_and_technology.mp4",
+          "./static/images/dummy/spinach.jpg"
         ]
       },
       {
@@ -23,9 +24,9 @@ data = [
         "title": "thrid Post",
         "description": "This is the description of the first post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150"
+          "./static/images/dummy/bicycle.mp4",
+          "./static/images/dummy/apples.jpg",
+          "./static/images/dummy/banana.jpg"
         ]
       },
       {
@@ -33,8 +34,9 @@ data = [
         "title": "forth Post",
         "description": "This is the description of the second post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150/video"
+          "./static/images/dummy/grapes.jpg",
+          "./static/images/dummy/mangoes.jpg",
+          "./static/images/dummy/scooter.mp4",
         ]
       },
       {
@@ -42,9 +44,9 @@ data = [
         "title": "Firth Post",
         "description": "This is the description of the first post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150"
+          "./static/images/dummy/bicycle.mp4",
+          "./static/images/dummy/apples.jpg",
+          "./static/images/dummy/banana.jpg"
         ]
       },
       {
@@ -52,8 +54,8 @@ data = [
         "title": "Sixth Post",
         "description": "This is the description of the second post.",
         "media": [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/150/video"
+          "./static/images/dummy/Science_and_technology.mp4",
+          "./static/images/dummy/spinach.jpg"
         ]
       }
     ]
