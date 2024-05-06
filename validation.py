@@ -1,5 +1,6 @@
 import bcrypt
 import re
+GENERATEDSALT=b'$2b$12$h2ZRuEWUl7VvwiCOFxLHc.zaBE0XbNpEda/xqtbiZDamuWYJtPMs6'
 
 ##validate the name
 def validate_name(name):
@@ -32,12 +33,14 @@ def validate_password(password):
     return bool(re.match(pattern, password))
 
 
+
 ##encrypt password 
 def encrypt_password(password):
     # Hash a password  with a randomly-generated salt
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'),GENERATEDSALT)
     return hashed_password
-#hencrypt_password(password).decode('utf-8')
+
+
 
 def matchPassword(password,confirmPassword):
     if password==confirmPassword:

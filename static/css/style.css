@@ -132,13 +132,19 @@ body {
 
   /* Customized Swiper slide */
   .swiper-slide img,video{
-    width:80%;
-    height: 300px;
+    width:50%;
+    height: 100%;
     padding: auto;
     margin: auto;
     object-fit: cover;
+           
   }
-
+  .swiper-slide{
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+  }
   /*create account styling*/
   .dropdown {
     position: relative;

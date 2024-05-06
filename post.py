@@ -75,3 +75,7 @@ common_interests = [
     "Nature/Outdoors",
     "Animals/Pets",
 ]
+logindetails=[{
+    "password":"Password1",
+    "email":"sam@gmail.com"
+  }]
