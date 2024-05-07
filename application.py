@@ -1,14 +1,14 @@
 from flask import Flask,redirect,url_for,render_template,request,jsonify,session
 from post import data,common_interests,logindetails
 from validation import matchPassword,encrypt_password
-from user import insertUserIntodb,loginCredentials,emailExists,selectAllfromUser
+from user import insertUserIntodb,loginCredentials,emailExists,selectAllfromUser,insertBio,insertContact,insertAddress,insertPostal,insertInterests
 
 app=Flask(__name__)
 app.secret_key="session"
 @app.route("/")
 def homePage():
-    
-    return render_template("userProfile.html",data=data)
+    user=selectUserInfo()
+    return render_template("userProfile.html",user=user,data=data)
 
 
 
@@ -24,13 +24,12 @@ def login_in():
         password=request.form["password"]
         
         password=encrypt_password(password.strip())
-        print('before ',password)
         user_credentials=loginCredentials(email,password)
-        print()
+        
         if user_credentials:
-            print(user_credentials)
             session["email"]=email
-            return redirect(url_for("homePage"))
+            user=selectUserInfo()
+            return render_template("userProfile.html",user=user,data=data)
         else:
             return "email or password not correct"
     return render_template("index.html")
@@ -83,7 +82,48 @@ def account_creation():
     #jsonify({'message': 'Form submitted successfully'})
 
 
+@app.route('/userprofileEdit')
+def userprofileedit():
+    return render_template('userprofileEdit.html')
 
+
+
+
+@app.route('/updateUserInfo',methods=['POST'])
+def updateUser():
+    email=session['email']
+    bio=request.form.get('bio')
+    contact=request.form.get('contact')
+    address=request.form.get('address')
+    postal_code=request.form.get('postalCode')
+    interests=request.fomr.get('interest')
+    if bio:
+        insertBio(email,bio)
+    if contact:
+        insertContact(email,contact)
+    if address:
+        insertAddress(email,address)
+    if postal:
+        insertPostal(email,postal_code)
+    if interests:
+        insertInterests(email,interests)
+            
+        
+
+
+@app.route('/userinfo')
+def selectUserInfo():
+    if "email" in session:
+        userEmail=session["email"]
+        user=selectAllfromUser(userEmail)
+        return user
+    
+    
+
+
+    
+
+    
 
 if __name__ =="__main__":
     app.run(debug=True)
