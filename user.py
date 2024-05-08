@@ -81,7 +81,7 @@ def insertBio(email,bio):
     conn = sqlite3.connect('comments.db')
     cursor = conn.cursor()
     try:
-        cursor.execute(query,(bio,))
+        cursor.execute(query,(bio,email))
         conn.commit()
     except sqlite3.Error as e:
         print('Error: ',e)
@@ -91,11 +91,11 @@ def insertBio(email,bio):
         
         
 def insertContact(email,contact):
-    query="UPDATE User SET contact_detail=? WHERE email=?"
+    query="UPDATE User SET contact_details=? WHERE email=?"
     conn = sqlite3.connect('comments.db')
     cursor = conn.cursor()
     try:
-        cursor.execute(query,(contact,))
+        cursor.execute(query,(contact,email))
         conn.commit()
     except sqlite3.Error as e:
         print('Error: ',e)
@@ -108,7 +108,7 @@ def insertAddress(email,address):
     conn = sqlite3.connect('comments.db')
     cursor = conn.cursor()
     try:
-        cursor.execute(query,(address,))
+        cursor.execute(query,(address,email))
         conn.commit()
     except sqlite3.Error as e:
         print('Error: ',e)
@@ -122,7 +122,7 @@ def insertPostal(email,postal_code):
     conn = sqlite3.connect('comments.db')
     cursor = conn.cursor()
     try:
-        cursor.execute(query,(postal_code,))
+        cursor.execute(query,(postal_code,email))
         conn.commit()
     except sqlite3.Error as e:
         print('Error: ',e)
@@ -136,7 +136,19 @@ def insertInterests(email,interests):
     conn = sqlite3.connect('comments.db')
     cursor = conn.cursor()
     try:
-        cursor.execute(query,(interests,))
+        cursor.execute(query,(interests,email))
+        conn.commit()
+    except sqlite3.Error as e:
+        print('Error: ',e)
+    finally:
+        conn.close()
+
+def insertImage(email,image):
+    query="UPDATE User SET images=? WHERE email=?"
+    conn = sqlite3.connect('comments.db')
+    cursor = conn.cursor()
+    try:
+        cursor.execute(query,(image,email))
         conn.commit()
     except sqlite3.Error as e:
         print('Error: ',e)

@@ -1,4 +1,5 @@
 {% extends "POSTS.html" %} {% block createPost %} {% if "email" in session%}
+
 <div class="row justify-content-center">
   <div class="col-md-9">
     <div class="card form-container">
@@ -45,13 +46,21 @@
 {%endif%} {% endblock %} {% block UserInfo %} {% if "email" in session%}
 <div class="row">
   <div class="col-md-12 mt-5">
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-md-5 image_border">
+        {%if not user.images%}
         <img
           src="../static/images/user.png"
           class="img-fluid rounded-circle mb-3"
           alt="User Image"
         />
+        {%else%}
+        <img
+          src="data:image/png;base64,{{user.images}}"
+          class="img-fluid rounded-circle mb-3"
+          alt="User Image"
+        />
+        {%endif%}
       </div>
       <div class="col-md-5">
         <h2><a href="{{ url_for('userprofileedit') }}">{{user.first_name}} {{user.last_name}}</a></h2>
@@ -74,8 +83,9 @@
     {% endif %}
   </div>
 </div>
-{%endif%} {% endblock %} {% block CreatePost_login_Buttons %} {%if "email" in
-session%}
+{%endif%} {% endblock %} 
+{% block CreatePost_login_Buttons %} 
+{%if "email" in session%}
 <div class="col-md-12 header-buttons">
   <div class="create-button">
     <form action="/logout" method="post">
@@ -125,4 +135,5 @@ session%}
 
   resetTimer();
 </script>
+
 {%endif%} {%endblock%}

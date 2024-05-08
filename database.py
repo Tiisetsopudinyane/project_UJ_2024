@@ -31,6 +31,7 @@ cursor.execute('''  CREATE TABLE IF NOT EXISTS User (
         home_address TEXT,
         postal_code TEXT,
         password TEXT NOT NULL,
+        images BLOB,
         interests TEXT
     )
         ''')
